@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OneBar | PIOPD for Generative Query Recommendation</title>
+  <title>OneBar: An End-to-End Content-Grounded Generative Query Recommendation Framework for E-Commerce Video Feeds</title>
 
   <meta name="description" content="OneBar introduces PIOPD, Preference-Internalized On-Policy Distillation, for deploying posterior preference learning inside a low-latency generative query recommendation model.">
   <meta name="keywords" content="OneBar, PIOPD, OPSD-style distillation, on-policy distillation, posterior preference distillation, generative query recommendation, e-commerce search, short-video search">
@@ -12,7 +12,8 @@
   <meta property="og:description" content="Preference-Internalized On-Policy Distillation transfers posterior behavior preferences into a trigger-only online generator.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://1045334875.github.io/onebar/">
-  <meta property="og:image" content="https://1045334875.github.io/onebar/assets/show.png">
+  <meta property="og:image" content="https://1045334875.github.io/onebar/assets/pipeline.png">
+  <link rel="canonical" href="https://1045334875.github.io/onebar/">
 
   <script type="application/ld+json">
   {
@@ -51,10 +52,12 @@
       --bg: #f7f8f5;
       --paper: #ffffff;
       --ink: #17202a;
+      --ink-deep: #0b1320;
       --muted: #5f6975;
       --line: #dfe4e8;
       --teal: #0f766e;
       --teal-dark: #115e59;
+      --cyan: #67e8f9;
       --amber: #b45309;
       --violet: #6d28d9;
       --green-soft: #e9f6ef;
@@ -63,6 +66,7 @@
       --violet-soft: #f3ecff;
       --rose-soft: #fff0ef;
       --shadow: 0 18px 50px rgba(23, 32, 42, 0.10);
+      --hero-shadow: 0 35px 90px rgba(3, 10, 24, 0.38);
     }
 
     * {
@@ -94,14 +98,16 @@
       justify-content: space-between;
       gap: 18px;
       padding: 14px max(20px, calc((100vw - 1180px) / 2));
-      background: rgba(247, 248, 245, 0.88);
-      border-bottom: 1px solid rgba(223, 228, 232, 0.82);
+      background: linear-gradient(135deg, rgba(9, 16, 28, 0.96) 0%, rgba(15, 23, 40, 0.95) 48%, rgba(22, 34, 54, 0.94) 100%);
+      border-bottom: 1px solid rgba(103, 232, 249, 0.08);
+      box-shadow: 0 8px 24px rgba(3, 10, 24, 0.22);
       backdrop-filter: blur(14px);
     }
 
     .brand {
       font-size: 18px;
       font-weight: 800;
+      color: #f8fafc;
       text-decoration: none;
       white-space: nowrap;
     }
@@ -110,7 +116,7 @@
       display: flex;
       align-items: center;
       gap: 18px;
-      color: var(--muted);
+      color: rgba(233, 241, 247, 0.76);
       font-size: 14px;
       font-weight: 700;
     }
@@ -121,17 +127,93 @@
 
     .hero {
       min-height: 84svh;
-      display: grid;
-      align-items: end;
       padding: 86px max(20px, calc((100vw - 1180px) / 2)) 70px;
       background:
-        linear-gradient(90deg, rgba(10, 17, 24, 0.92) 0%, rgba(10, 17, 24, 0.74) 44%, rgba(10, 17, 24, 0.30) 100%),
-        url("assets/show.png") center / cover no-repeat;
-      color: #ffffff;
+        linear-gradient(rgba(103, 232, 249, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103, 232, 249, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 12% 18%, rgba(103, 232, 249, 0.13) 0%, rgba(103, 232, 249, 0) 24%),
+        radial-gradient(circle at 86% 16%, rgba(109, 40, 217, 0.16) 0%, rgba(109, 40, 217, 0) 20%),
+        linear-gradient(135deg, #09101c 0%, #0f1728 48%, #162236 100%);
+      background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
+      background-position: 0 0, 0 0, 12% 18%, 86% 16%, center;
+      background-size: 28px 28px, 28px 28px, auto, auto, auto;
+      color: #f8fafc;
+    }
+
+    .hero-inner {
+      min-height: calc(84svh - 156px);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 34px;
+      align-items: start;
     }
 
     .hero-content {
-      max-width: 780px;
+      max-width: 760px;
+      padding: 18px 0 0;
+    }
+
+    .hero-visual {
+      display: block;
+      position: relative;
+    }
+
+    .hero-frame {
+      width: 100%;
+      margin: 0;
+      position: relative;
+      border: 1px solid rgba(103, 232, 249, 0.16);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: var(--hero-shadow);
+      overflow: hidden;
+    }
+
+    .hero-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #ffffff;
+    }
+
+    .hero-frame.hero-pipeline {
+      padding: 14px;
+      border-color: rgba(103, 232, 249, 0.22);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 248, 252, 0.92));
+      box-shadow:
+        0 30px 80px rgba(3, 10, 24, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .hero-frame.hero-pipeline img {
+      aspect-ratio: auto;
+      object-fit: contain;
+      object-position: center;
+      border: 1px solid rgba(23, 32, 42, 0.08);
+      border-radius: 14px;
+      background: #ffffff;
+    }
+
+    .hero-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.00) 18%);
+      pointer-events: none;
+    }
+
+    .hero-frame.hero-pipeline::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      width: 68px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(15, 118, 110, 0.88), rgba(103, 232, 249, 0.92));
+      pointer-events: none;
     }
 
     .eyebrow {
@@ -139,10 +221,12 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 18px;
-      color: #d9f99d;
+      color: var(--cyan);
       font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.92;
     }
 
     h1,
@@ -155,20 +239,23 @@
     h1 {
       margin-bottom: 18px;
       max-width: 760px;
-      font-size: 56px;
-      line-height: 1.04;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-size: 60px;
+      line-height: 0.98;
       letter-spacing: 0;
+      text-wrap: balance;
+      color: #f8fafc;
     }
 
     .hero p {
       max-width: 700px;
       margin-bottom: 22px;
-      color: rgba(255, 255, 255, 0.88);
+      color: rgba(233, 241, 247, 0.78);
       font-size: 19px;
     }
 
     .authors {
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(233, 241, 247, 0.68);
       font-size: 15px;
     }
 
@@ -191,10 +278,10 @@
       align-items: center;
       min-height: 34px;
       padding: 7px 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(103, 232, 249, 0.16);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.10);
-      color: rgba(255, 255, 255, 0.90);
+      background: rgba(255, 255, 255, 0.06);
+      color: #e6f4f7;
       font-size: 13px;
       font-weight: 800;
     }
@@ -205,19 +292,20 @@
       justify-content: center;
       min-height: 44px;
       padding: 10px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.30);
+      border: 1px solid rgba(103, 232, 249, 0.16);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.10);
-      color: #ffffff;
+      background: rgba(255, 255, 255, 0.06);
+      color: #f8fafc;
       font-size: 15px;
       font-weight: 800;
       text-decoration: none;
     }
 
     .button.primary {
-      border-color: #ffffff;
-      background: #ffffff;
-      color: var(--ink);
+      border-color: rgba(103, 232, 249, 0.30);
+      background: linear-gradient(135deg, #0f766e 0%, #1d9a91 100%);
+      color: #ffffff;
+      box-shadow: 0 12px 28px rgba(15, 118, 110, 0.34);
     }
 
     .section {
@@ -621,23 +709,35 @@
         transform: rotate(90deg);
       }
 
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .hero-inner {
+        gap: 26px;
+      }
+
       h1 {
-        font-size: 42px;
+        font-size: 46px;
       }
     }
 
     @media (max-width: 620px) {
       .hero {
-        min-height: 82svh;
         padding-top: 74px;
         padding-bottom: 44px;
+        min-height: auto;
         background:
-          linear-gradient(180deg, rgba(10, 17, 24, 0.92) 0%, rgba(10, 17, 24, 0.78) 64%, rgba(10, 17, 24, 0.52) 100%),
-          url("assets/show.png") center / cover no-repeat;
+          linear-gradient(rgba(103, 232, 249, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(103, 232, 249, 0.04) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(9, 16, 28, 0.96) 0%, rgba(10, 18, 30, 0.92) 46%, rgba(14, 24, 40, 0.80) 100%);
+        background-repeat: repeat, repeat, no-repeat;
+        background-position: 0 0, 0 0, center;
+        background-size: 24px 24px, 24px 24px, auto;
       }
 
       h1 {
-        font-size: 34px;
+        font-size: 36px;
       }
 
       h2 {
@@ -651,6 +751,10 @@
 
       .metric-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero-frame {
+        border-radius: 14px;
       }
     }
   </style>
@@ -669,26 +773,34 @@
 
   <main>
     <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">PIOPD | Preference-Internalized On-Policy Distillation</div>
-        <h1>OneBar: PIOPD</h1>
-        <p>
-          OneBar's core contribution is PIOPD: an OPSD-style posterior preference distillation strategy that injects
-          behavior-confirmed intent into a deployable trigger-only query generator.
-        </p>
-        <div class="hero-badges" aria-label="PIOPD summary">
-          <span>Posterior-aware teacher</span>
-          <span>On-policy student rollouts</span>
-          <span>No online reward model</span>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="eyebrow">PIOPD | Preference-Internalized On-Policy Distillation</div>
+          <h1>OneBar: An End-to-End Content-Grounded Generative Query Recommendation Framework for E-Commerce Video Feeds</h1>
+          <p>
+            OneBar's core contribution is PIOPD: an OPSD-style posterior preference distillation strategy that injects
+            behavior-confirmed intent into a deployable trigger-only query generator.
+          </p>
+          <div class="hero-badges" aria-label="PIOPD summary">
+            <span>Posterior-aware teacher</span>
+            <span>On-policy student rollouts</span>
+            <span>No online reward model</span>
+          </div>
+          <p class="authors">
+            Yao Tang, Ying Yang, Ben Chen, Yufei Ma, Zihan Liang, Chenyi Lei, Wenwu Ou, Jian Liu
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#piopd">Explore PIOPD</a>
+            <a class="button" href="https://arxiv.org/abs/2606.15330">Read Paper</a>
+            <a class="button" href="https://arxiv.org/pdf/2606.15330">Download PDF</a>
+            <a class="button" href="#citation">BibTeX</a>
+          </div>
         </div>
-        <p class="authors">
-          Yao Tang, Ying Yang, Ben Chen, Yufei Ma, Zihan Liang, Chenyi Lei, Wenwu Ou, Jian Liu
-        </p>
-        <div class="actions">
-          <a class="button primary" href="#piopd">Explore PIOPD</a>
-          <a class="button" href="https://arxiv.org/abs/2606.15330">Read Paper</a>
-          <a class="button" href="https://arxiv.org/pdf/2606.15330">Download PDF</a>
-          <a class="button" href="#citation">BibTeX</a>
+
+        <div class="hero-visual" aria-hidden="true">
+          <figure class="hero-frame hero-pipeline">
+            <img src="assets/pipeline.png" alt="Overview of the OneBar framework and multi-stage training paradigm">
+          </figure>
         </div>
       </div>
     </section>
@@ -996,6 +1108,14 @@
 
       <div class="faq">
         <article>
+          <h3>What is PIOPD?</h3>
+          <p>
+            PIOPD stands for Preference-Internalized On-Policy Distillation. It is the core training method in OneBar,
+            designed to transfer behavior-confirmed posterior intent into a deployable trigger-only query generator.
+          </p>
+        </article>
+
+        <article>
           <h3>Is PIOPD the same as OPSD?</h3>
           <p>
             PIOPD is an OPSD-style posterior preference distillation strategy for generative recommendation. It adapts
@@ -1005,10 +1125,28 @@
         </article>
 
         <article>
-          <h3>Why not just use retrieval?</h3>
+          <h3>Why is OneBar relevant to OPSD?</h3>
           <p>
-            Retrieval-based pipelines are bounded by historical candidate pools and fragmented objectives. OneBar can
-            compose fresh, fine-grained queries from current content evidence and collaborative anchors.
+            OneBar applies OPSD-style on-policy distillation to a recommendation and search generation setting. The
+            student is trained on its own rollout states, while the teacher uses posterior behavior evidence to provide
+            dense token-level supervision.
+          </p>
+        </article>
+
+        <article>
+          <h3>What problem does OneBar solve?</h3>
+          <p>
+            OneBar solves real-time bottom-bar query recommendation for e-commerce short-video feeds. It replaces a
+            retrieval-based cascade with an end-to-end content-grounded generator that can produce fresher and more
+            fine-grained queries.
+          </p>
+        </article>
+
+        <article>
+          <h3>What are the main results?</h3>
+          <p>
+            In online A/B testing, OneBar improves query exposure, query clicks, guided orders, and guided GMV, while
+            also reducing manual bad-case rate in relevance, literal quality, and risk-control evaluation.
           </p>
         </article>
 
