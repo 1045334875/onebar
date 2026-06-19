@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://1045334875.github.io/onebar/sitemap.xml
