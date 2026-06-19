@@ -7,23 +7,6 @@ Official code repository for the paper:
 - Paper: https://arxiv.org/abs/2606.15330
 - Project page: https://1045334875.github.io/onebar/
 
-## Status
-
-Code release is coming soon.
-
-We are currently preparing the public codebase and documentation for release in this repository.
-
-Planned contents include:
-
-- training pipeline
-- inference and serving components
-- preprocessing and prompt construction code
-- reproduction instructions for the main framework
-
-## Note
-
-The public project page is maintained on the `gh-pages` branch.
-
 ## Citation
 
 ```bibtex
