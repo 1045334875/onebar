@@ -7,6 +7,8 @@ Official code repository for the paper:
 - Paper: https://arxiv.org/abs/2606.15330
 - Project page: https://1045334875.github.io/onebar/
 
+Code release is coming soon.
+
 ## Citation
 
 ```bibtex
